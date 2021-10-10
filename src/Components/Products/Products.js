@@ -6,7 +6,12 @@ function Products(props) {
   return (
     <section className="products">
       {listproducts.map((item) => (
-        <Product key={item.id} item={item}></Product>
+        <Product
+          key={item.id}
+          title={item.title}
+          image={item.image}
+          price={item.price}
+        ></Product>
       ))}
     </section>
   );
