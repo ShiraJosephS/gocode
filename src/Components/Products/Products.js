@@ -1,18 +1,13 @@
 import Product from "../Product/Product";
 import "./Products.css";
-function Products() {
+function Products(props) {
+  const listproducts = props.productsDetails;
+
   return (
-    <section class="products">
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
+    <section className="products">
+      {listproducts.map((item) => (
+        <Product key={item.id} item={item}></Product>
+      ))}
     </section>
   );
 }
