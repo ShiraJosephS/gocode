@@ -1,13 +1,13 @@
 import "./Product.css";
-function Product(props) {
+function Product({title ,image ,price}) {
   return (
     <div className="product-card">
       <div className="product-image">
-        <img src={props.image} />
+        <img src={image} alt='productImage'/>
       </div>
       <div className="product-info">
-        <h5>{props.title}</h5>
-        <h6>{props.price}</h6>
+        <h5>{title}</h5>
+        <h6>{price}</h6>
       </div>
     </div>
   );
