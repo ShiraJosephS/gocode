@@ -1,5 +1,6 @@
 import "./Header.css";
-function Header() {
+function Header(categoryList) {
+  
   return (
     <nav className="product-filter">
       <h1>Jackets</h1>

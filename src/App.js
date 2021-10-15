@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import Header from "./Components/Header/Header";
 import Products from "./Components/Products/Products";
+import Taskone from "./Components/Tasks/Taskone";
 function App() {
   // const productsDetails = [
   //   {
@@ -274,22 +275,22 @@ function App() {
   //     },
   //   },
   // ];
-  const [text, setText] = useState(true);
+  // const products = productsDetails;
+
+  // const categories = products
+  //   .map((p) => p.category)
+  //   .filter((value, index, array) => array.indexOf(value) === index);
+  // console.log(categories);
   return (
     // <React.Fragment>
     //   <div className="App">
-    //     <Header />
+    //     <Header   categoryList={categories}/>
     //     <Products productsDetails={productsDetails} />
     //   </div>
     // </React.Fragment>
-
-    <div>
-      <h1>{text ? "hiiiiiiii" : ""}</h1>
-      <button className="button" onClick={() => setText(!text)}>
-        Press me
-      </button>
-    </div>
+    <Taskone/>
   );
 }
+
 
 export default App;
