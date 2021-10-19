@@ -1,12 +1,13 @@
 import Product from "../Product/Product";
-import "./Products.css";
-import { useState } from "react";
-function Products(props) {
-  const listproducts = props.productsDetails;
+import "./Cart.css";
+import { useContext } from "react";
+import MyContext from "../../MyContext";
+function Cart() {
+  const [cartproducts, setcartproducts] = useContext(MyContext);
 
   return (
     <section className="products">
-      {listproducts.map((item) => (
+      {cartproducts?.map((item) => (
         <Product
           key={item.id}
           id={item.id}
@@ -19,4 +20,4 @@ function Products(props) {
   );
 }
 
-export default Products;
+export default Cart;

@@ -5,54 +5,63 @@ import React, { useEffect, useState } from "react";
 //import { Icon } from "@iconify/react";
 import Header from "./Components/Header/Header";
 import Products from "./Components/Products/Products";
+import MyContext from "./MyContext";
+import Cart from "./Components/Cart/Cart";
 //import Taskone from "./Components/Tasks/Taskone";
 function App() {
-  const [productsDetails,setProductsDetails] = useState([]);
+  const [productsDetails, setProductsDetails] = useState([]);
   const [productsByCategory, setProductsByCategory] = useState([]);
-  const [categoriesList,setcategoriesList] = useState([]);
- 
-  
-    useEffect(() => {
-      fetch("https://fakestoreapi.com/products").then((res)=>{return res.json();}).then((allProducts)=>{
+  const [categoriesList, setcategoriesList] = useState([]);
+  const [cartproducts, setcartproducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => {
+        return res.json();
+      })
+      .then((allProducts) => {
+        //let allProducts = res.map((p) => ({ ...p, amountInCart: 0 }));
+        //console.log(allProducts);
         setProductsDetails(allProducts);
         setProductsByCategory(allProducts);
-        setcategoriesList(allProducts
-          .map((p) => p.category)
-          .filter((value, index, array) => array.indexOf(value) === index));
-      })
-      
-    },[]);
- 
-  
-  
-  
+        setcategoriesList(
+          allProducts
+            .map((p) => p.category)
+            .filter((value, index, array) => array.indexOf(value) === index)
+        );
+      });
+  }, []);
 
-  const categoryChange = (categoryName) =>{
-    if(categoryName === 'Categories') {
+  const categoryChange = (categoryName) => {
+    if (categoryName === "Categories") {
       setProductsByCategory(productsDetails);
     } else {
-      setProductsByCategory(productsDetails.filter((product) => product.category === categoryName));
-      
-
+      setProductsByCategory(
+        productsDetails.filter((product) => product.category === categoryName)
+      );
     }
-  }
-  
+  };
+
   return (
-    <React.Fragment>
-      <div className="App">
-        <Header   categoryList={categoriesList} onChangeCategory={categoryChange}/>
-        {/* <Header/> */}
-        <Products productsDetails={productsByCategory} />
-      </div>
-    </React.Fragment>
+    <MyContext.Provider value={[cartproducts, setcartproducts]}>
+      <React.Fragment>
+        <div className="App">
+          <Header
+            categoryList={categoriesList}
+            onChangeCategory={categoryChange}
+          />
+          <Products productsDetails={productsByCategory} />
+          <Cart />
+        </div>
+      </React.Fragment>
+    </MyContext.Provider>
     // <Taskone/>
   );
 }
 
-
 export default App;
- //FOR TASK 3
- //setProductsDetails([
+//FOR TASK 3
+//setProductsDetails([
 //   {
 //     id: 1,
 //     title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",

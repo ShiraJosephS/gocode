@@ -1,24 +1,19 @@
 import "./Header.css";
-function Header({categoryList ,onChangeCategory}) {
-  console.log('kkkkkkkkkk',categoryList);
-  
+function Header({ categoryList, onChangeCategory }) {
   return (
     <nav className="product-filter">
       <h1>Shop</h1>
       <div className="sort">
         <div className="collection-sort">
           <label>Filter by:</label>
-          <select onChange={(e)=>onChangeCategory(e.target.value)}>
-          <option value="Categories">Categories</option>
-          {
-             categoryList.map((category,index)=>
-             <option key={index} value={category}>{category}</option>
-             )
-          }
-          <select />
-       </select> 
-       
-         
+          <select onChange={(e) => onChangeCategory(e.target.value)}>
+            <option value="Categories">Categories</option>
+            {categoryList.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="collection-sort">
           <label>Sort by:</label>
