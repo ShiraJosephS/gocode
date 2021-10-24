@@ -2,6 +2,7 @@ import { useEffect, useState } from "react/cjs/react.development";
 import "./Product.css";
 import { useContext } from "react";
 import MyContext from "../../MyContext";
+import { Link } from "react-router-dom";
 
 function Product({ id, title, image, price }) {
   const [cartproducts, setcartproducts] = useContext(MyContext);
@@ -52,13 +53,15 @@ function Product({ id, title, image, price }) {
 
   return (
     <div className="product-card">
-      <div className="product-image">
-        <img src={image} alt="productImage" />
-      </div>
-      <div className="product-info">
-        <h5>{title}</h5>
-        <h6>{price}</h6>
-      </div>
+      <Link to={`/product/${id}`}>
+        <div className="product-image">
+          <img src={image} alt="productImage" />
+        </div>
+        <div className="product-info">
+          <h5>{title}</h5>
+          <h6>{price}</h6>
+        </div>
+      </Link>
       <div className="counter">
         <div className="btn" onClick={addCount}>
           +

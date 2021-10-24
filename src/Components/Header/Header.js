@@ -1,5 +1,19 @@
 import "./Header.css";
-function Header({ categoryList, onChangeCategory }) {
+import Slider from "@mui/material/Slider";
+import Box from "@mui/material/Box";
+import { useState } from "react";
+
+function valuetext(value) {
+  return `${value}`;
+}
+function Header({ categoryList, onChangeCategory, onChangeSlider }) {
+  const [value, setValue] = useState([0, 1000]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    onChangeSlider(newValue);
+  };
+
   return (
     <nav className="product-filter">
       <h1>Shop</h1>
@@ -28,6 +42,17 @@ function Header({ categoryList, onChangeCategory }) {
             <option value="/">Date, old to new</option>
           </select>
         </div>
+        <Box sx={{ width: 200, margin: 2 }}>
+          <Slider
+            getAriaLabel={() => "Temperature range"}
+            value={value}
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            getAriaValueText={valuetext}
+            min={0}
+            max={1000}
+          />
+        </Box>
       </div>
     </nav>
   );

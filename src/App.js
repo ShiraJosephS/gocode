@@ -1,66 +1,52 @@
-import logo from "./logo.svg";
 import "./App.css";
-import React, { useEffect, useState } from "react";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Home from "./views/Home";
+import ProductDetails from "../src/views/ProductDetails";
+import { useState } from "react/cjs/react.development";
+import MyContext from "./MyContext";
 
 //import { Icon } from "@iconify/react";
-import Header from "./Components/Header/Header";
-import Products from "./Components/Products/Products";
-import MyContext from "./MyContext";
-import Cart from "./Components/Cart/Cart";
+//import logo from "./logo.svg";
 //import Taskone from "./Components/Tasks/Taskone";
+
 function App() {
-  const [productsDetails, setProductsDetails] = useState([]);
-  const [productsByCategory, setProductsByCategory] = useState([]);
-  const [categoriesList, setcategoriesList] = useState([]);
-  const [cartproducts, setcartproducts] = useState([]);
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => {
-        return res.json();
-      })
-      .then((allProducts) => {
-        //let allProducts = res.map((p) => ({ ...p, amountInCart: 0 }));
-        //console.log(allProducts);
-        setProductsDetails(allProducts);
-        setProductsByCategory(allProducts);
-        setcategoriesList(
-          allProducts
-            .map((p) => p.category)
-            .filter((value, index, array) => array.indexOf(value) === index)
-        );
-      });
-  }, []);
-
-  const categoryChange = (categoryName) => {
-    if (categoryName === "Categories") {
-      setProductsByCategory(productsDetails);
-    } else {
-      setProductsByCategory(
-        productsDetails.filter((product) => product.category === categoryName)
-      );
-    }
-  };
-
+  const [cartProducts, setCartProducts] = useState([]); //MyContext
   return (
-    <MyContext.Provider value={[cartproducts, setcartproducts]}>
-      <React.Fragment>
-        <div className="App">
-          <Header
-            categoryList={categoriesList}
-            onChangeCategory={categoryChange}
-          />
-          <Products productsDetails={productsByCategory} />
-          <Cart />
+    <Router>
+      <MyContext.Provider value={[cartProducts, setCartProducts]}>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/products">ProductDetails</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/products">
+              <ProductDetails />
+            </Route>
+            <Route path="/product/:id">
+              <ProductDetails />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
         </div>
-      </React.Fragment>
-    </MyContext.Provider>
-    // <Taskone/>
+      </MyContext.Provider>
+    </Router>
   );
 }
 
 export default App;
 //FOR TASK 3
+// <Taskone/>
 //setProductsDetails([
 //   {
 //     id: 1,
